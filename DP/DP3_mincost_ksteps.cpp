@@ -19,14 +19,14 @@ int f(int i, vector<int> &cost, vector<int> &dp, int k)
     if (dp[i] != -1)
         return dp[i];
 
-    int mini = 1e18;
+    int mini = 1e9;
     for(int step=1;step<=k;step++){
-        int store = 1e18;
-        if(i-step > 1)store = f(i-step, cost, dp, k);
+        int store = 1e9;
+        if(i>=step)store = f(i-step, cost, dp, k);
         mini = min(mini, store);
     }
 
-    return dp[i] = mini;
+    return dp[i] = cost[i] + mini;
 }
 int minCostClimbingStairs(vector<int> &cost, int k)
 {
@@ -43,17 +43,20 @@ int minCostClimbingStairs(vector<int> &cost, int k)
      dp[1] = cost[1];
 
     for(int i=2;i<=n;i++){
-        int mini = 1e18;
+        int mini = 1e9;
         for (int step = 1; step <= k; step++)
         {
             int store = 1e9;
-            if (i - step > 1)
+            if (i >= step)
                 store = dp[i-step];
             mini = min(mini, store);
         }
-        dp[i] = mini;
+        dp[i] = cost[i] + mini;
     }
     int ans = dp[n];
+
+    for(int i=0;i<=n;i++)cout<<dp[i]<<" ";
+    cout<<endl;
 
     cost.pop_back();
     return ans;
