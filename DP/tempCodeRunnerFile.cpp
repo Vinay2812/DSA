@@ -1,0 +1,1 @@
+prev1 = curr;
