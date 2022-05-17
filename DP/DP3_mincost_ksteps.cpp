@@ -1,10 +1,14 @@
 /*
-You are given an integer array cost where cost[i] is the cost of ith step on a staircase. 
+You are given an integer array cost where cost[i] is the cost of ith step on a staircase.
 Once you pay the cost, you can climb k steps
 
 You can either start from the step with index 0, or the step with index 1.
 
 Return the minimum cost to reach the top of the floor.
+
+Recursion -> tc->k^n sc->O(n)
+Memoization -> tc -> O(n*k) sc-> O(n) + O(n)
+Tabulation -> tc -> O(n*k) sc-> O(n)
 */
 #include <bits/stdc++.h>
 using namespace std;

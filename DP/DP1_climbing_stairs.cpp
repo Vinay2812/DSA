@@ -5,6 +5,11 @@ You are climbing a staircase. It takes n steps to reach the top.
 
 Each time you can either climb 1 or 2 steps.
  In how many distinct ways can you climb to the top?
+
+Recursion -> tc->2^n sc->O(n)
+Memoization -> tc -> O(n) sc-> O(n) + O(n)
+Tabulation -> tc -> O(n) sc-> O(n)
+Space optimization -> tc->O(n) sc->O(1)
 */
 #include<bits/stdc++.h>
 using namespace std;

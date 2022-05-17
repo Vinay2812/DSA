@@ -5,6 +5,11 @@ You are given an integer array cost where cost[i] is the cost of ith step on a s
 You can either start from the step with index 0, or the step with index 1.
 
 Return the minimum cost to reach the top of the floor.
+
+Recursion -> tc->2^n sc->O(n)
+Memoization -> tc -> O(n) sc-> O(n) + O(n)
+Tabulation -> tc -> O(n) sc-> O(n)
+Space optimization -> tc->O(n) sc->O(1)
 */
 #include<bits/stdc++.h>
 using namespace std;
