@@ -24,12 +24,14 @@ using namespace std;
 
 int f(int i, int j, vector<vector<int>>& dp)
 {
-    if(i == 0 || j == 0)return 1;
+    if(i == 0 and j == 0)return 1;
 
     if(dp[i][j] != -1)return dp[i][j];
-
-    int up = f(i-1, j, dp);
-    int left = f(i, j-1, dp);
+    
+    int up = 0;
+    if(i>0)up = f(i-1, j, dp);
+    int left = 0;
+    if(j>0)left = f(i, j-1, dp);
 
     return dp[i][j] = up + left;
 }
@@ -41,16 +43,19 @@ int uniquePaths(int n, int m) {
 
     //tabulation
     // vector<vector<int>> dp(n, vector<int>(m, 0));
+    // dp[0][0] = 1;
 
-    // for(int j=0;j<m;j++)dp[0][j] = 1;
-    // for(int i=0;i<n;i++)dp[i][0] = 1;
+    // for(int i=0;i<n;i++){
+    //     for(int j=0;j<n;j++){
+    //         if(i == 0 and j == 0)continue;
 
-    // for(int i=1;i<n;i++){
-    //     for(int j=1;j<m;j++){
-    //         int up = dp[i-1][j];
-    //         int left = dp[i][j-1];
+    //         int up = 0;
+    //         if(i>0)up = dp[i-1][j];
+    //         int left = 0;
+    //         if(j>0)left = dp[i][j-1];
 
     //         dp[i][j] = up + left;
+
     //     }
     // }
     // return dp[n-1][m-1];

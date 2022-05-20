@@ -14,8 +14,6 @@ ip->
 
 op->
 5
-
-
 */
 
 #include <bits/stdc++.h>

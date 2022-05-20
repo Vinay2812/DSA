@@ -29,26 +29,29 @@ using namespace std;
 int f(int day, int prev_task, vector<vector<int>> &points, vector<vector<int>>& dp)
 {
     if(day == 0){
-        int m = -1e9;
+        int maxi = -1e9;
         for (int task = 0; task < 3; task++){
-            if(task != prev_task)
-                m = max(m, points[0][task]);
+            if (task != prev_task){
+                int store = points[day][task];
+                maxi = max(maxi, store);
+            }
         }
-        return m;
+        return maxi;
     }
-
+    
     if(dp[day][prev_task] != -1)
         return dp[day][prev_task];
 
     int maxi = -1e9;
-    for (int task = 0; task < 3; task++)
-    {
+    for(int task=0;task<3;task++){
         if(task != prev_task){
-            int store = points[day][task] + f(day - 1, task, points, dp);
-            maxi = max(store, maxi);
+            int store = points[day][task] + f(day-1, task, points, dp);
+            maxi = max(maxi, store);
         }
     }
+
     return dp[day][prev_task] = maxi;
+
 }
 
 int ninjaTraining(int n, vector<vector<int>> &points)
@@ -57,7 +60,7 @@ int ninjaTraining(int n, vector<vector<int>> &points)
     // int maxi = -1e9;
     // vector<vector<int>> dp(n, vector<int>(3, -1));
     // for(int task=0;task<3;task++){
-    //     int point = points[n-1][task] + f(n-2, task, points, dp);
+    //     int point = f(n-1, task, points, dp);
     //     maxi = max(point, maxi);
     // }
     // return maxi;
@@ -65,10 +68,17 @@ int ninjaTraining(int n, vector<vector<int>> &points)
     //tabulation
     // vector<vector<int>> dp(n, vector<int>(3, 0));
 
-    // //base condition for day =0 and different prev_task
-    // dp[0][0] = max(points[0][1], points[0][2]);
-    // dp[0][1] = max(points[0][0], points[0][2]);
-    // dp[0][2] = max(points[0][0], points[0][1]);
+    // for(int prev_task=0;prev_task<3;prev_task++){
+    //     int maxi = -1e9;
+    //     for (int task = 0; task < 3; task++){
+    //         if (task != prev_task){
+    //             int store = points[0][task];
+    //             maxi = max(maxi, store);
+    //         }
+    //     } 
+    //     dp[0][prev_task] = maxi;
+    // }
+    
 
     // for(int day=1;day<n;day++){
     //     for(int prev_task=0;prev_task<3;prev_task++){
@@ -96,9 +106,16 @@ int ninjaTraining(int n, vector<vector<int>> &points)
     //space optimization
     vector<int> prev(3, 0), curr(3, 0);
 
-    prev[0] = max(points[0][1], points[0][2]);
-    prev[1] = max(points[0][0], points[0][2]);
-    prev[2] = max(points[0][0], points[0][1]);
+    for(int prev_task=0;prev_task<3;prev_task++){
+        int maxi = -1e9;
+        for (int task = 0; task < 3; task++){
+            if (task != prev_task){
+                int store = points[0][task];
+                maxi = max(maxi, store);
+            }
+        }
+        prev[prev_task] = maxi;
+    }
 
     for(int day=1;day<n;day++){
         for(int prev_task=0;prev_task<3;prev_task++){
