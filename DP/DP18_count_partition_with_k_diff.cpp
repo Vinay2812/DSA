@@ -15,54 +15,73 @@ op->
 */
 #include<bits/stdc++.h>
 using namespace std;
+int f(int i, int target, vector<int> &num, vector<vector<int>> &dp)
+{
+    if (i == 0)
+    {
+        if (num[0] == 0 and target == 0)
+            return 2;
+        else if (num[0] == target)
+            return 1;
+        else if (target == 0)
+            return 1;
+        else
+            return 0;
+    }
 
-int countPartitions(int n, int d, vector<int> &arr) {
-    int mod = int(1e9 + 7);
+    if (dp[i][target] != -1)
+        return dp[i][target];
 
-    long long count = 0;
+    int nt = f(i - 1, target, num, dp);
+    int t = 0;
+    if (num[i] <= target)
+        t = f(i - 1, target - num[i], num, dp);
 
-    int total_sum = 0;
-    for (auto x : arr)
-        total_sum += x;
+    return dp[i][target] = t + nt;
+}
 
-    int k = total_sum ;
-    // space optimization
+int findWays(vector<int> &num, int k)
+{
+    int n = num.size();
 
     vector<int> prev(k + 1, 0), curr(k + 1, 0);
-
     for (int target = 0; target <= k; target++)
-        prev[target] = arr[0] == target;
-
-    prev[0] = 1;
-    curr[0] = 1;
+    {
+        if (num[0] == 0 and target == 0)
+            prev[0] = 2;
+        else if (num[0] == target)
+            prev[target] = 1;
+        else if (num[0] != 0 and target == 0)
+            prev[0] = 1;
+        else
+            prev[target] = 0;
+    }
 
     for (int i = 1; i < n; i++)
     {
-        for (int target = 1; target <= k; target++)
+        for (int target = 0; target <= k; target++)
         {
             int nt = prev[target];
             int t = 0;
-            if (arr[i] <= target)
-                t = prev[target - arr[i]];
+            if (num[i] <= target)
+                t = prev[target - num[i]];
 
             curr[target] = t + nt;
         }
         prev = curr;
     }
+    return prev[k];
+}
 
-    for(int target=0;target<=k/2;target++){
-        int s1 = target;
-        int s2 = k - s1;
+int countPartitions(int n, int d, vector<int> &arr) {
+    int total = 0;
+    for(auto &it : arr)total+=it;
 
-        if(prev[s1] and prev[s2] and abs(s1 - s2) == d){
-            count += min(prev[s1], prev[s2]);
-        }
-    }
-    
-    for(int i=0;i<=k;i++)cout<<prev[i]<<" ";
-    cout<<endl;
+    if(total-d < 0 || (total-d)%2 == 1)return 0;
 
-    return count;
+    int k = (total - d) / 2;//subset2 sum
+
+    return findWays(arr, k);
 }
 
 int main()

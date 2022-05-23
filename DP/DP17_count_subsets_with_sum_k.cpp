@@ -22,9 +22,12 @@ using namespace std;
 
 int f(int i, int target, vector<int> &num, vector<vector<int>>& dp)
 {
-    if(target == 0)return 1;
-
-    if(i == 0)return num[0] == target;
+    if(i == 0){
+        if(num[0] == 0 and target == 0)return 2;
+        else if(num[0] == target)return 1;
+        else if(target == 0)return 1;
+        else return 0;
+    }
 
     if(dp[i][target] != -1)return dp[i][target];
 
@@ -45,13 +48,19 @@ int findWays(vector<int> &num, int k){
     // tabulation
     // vector<vector<int>> dp(n, vector<int>(k + 1, 0));
 
-    // for(int target=0;target<=k;target++)
-    //     dp[0][target] = num[0] == target;
-    
-    // for(int i=0;i<n;i++)dp[i][0] = 1;
+    // for(int target=0;target<=k;target++){
+    //     if (num[0] == 0 and target == 0)
+    //         dp[0][0] =  2;
+    //     else if (num[0] == target)
+    //         dp[0][target] =  1;
+    //     else if (num[0]!=0 and target == 0)
+    //         dp[0][0] = 1;
+    //     else
+    //         dp[0][target] =  0;
+    // }
 
     // for(int i=1;i<n;i++){
-    //     for(int target=1;target<=k;target++){
+    //     for(int target=0;target<=k;target++){
     //         int nt = dp[i-1][target];
     //         int t = 0;
     //         if (num[i] <= target)
@@ -60,25 +69,23 @@ int findWays(vector<int> &num, int k){
     //         dp[i][target] = t + nt;
     //     }
     // }
-    // for(int i=0;i<n;i++){
-    //     for(int j=0;j<=k;j++){
-    //         cout<<dp[i][j]<<" ";
-    //     }
-    //     cout<<endl;
-    // }
     // return dp[n-1][k];
 
-    //space optimization
-    vector<int>prev(k + 1, 0), curr(k+1, 0);
-
-    for(int target=0;target<=k;target++)
-        prev[target] = num[0] == target;
-
-    prev[0] = 1;
-    curr[0] = 1;
+    // space optimization
+     vector<int>prev(k + 1, 0), curr(k+1, 0);
+     for(int target=0;target<=k;target++){
+        if (num[0] == 0 and target == 0)
+            prev[0] =  2;
+        else if (num[0] == target)
+            prev[target] =  1;
+        else if (num[0]!=0 and target == 0)
+            prev[0] = 1;
+        else
+            prev[target] =  0;
+    }
 
     for(int i=1;i<n;i++){
-        for(int target=1;target<=k;target++){
+        for(int target=0;target<=k;target++){
             int nt = prev[target];
             int t = 0;
             if (num[i] <= target)
