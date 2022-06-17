@@ -17,15 +17,15 @@ int f(int i, int buy, int n, vector<int> &prices, vector<vector<int>>& dp)
     if(dp[i][buy] != -1)return dp[i][buy];
     //buy
     if(buy == 1){
-        int b = -prices[i] + f(i+1, 0, n, prices, dp);
-        int nb = 0 + f(i+1, buy, n, prices, dp);
+        int b = -prices[i] + f(i+1, 0, n, prices, dp);//-buy_price + sell_price
+        int nb = 0 + f(i+1, 1, n, prices, dp);
 
         return dp[i][buy] = max(max(b, nb), 0);
     }
     else{
         //sell
         int s = +prices[i];
-        int ns = 0 + f(i+1, buy, n, prices, dp);
+        int ns = 0 + f(i+1, 0, n, prices, dp);
 
         return dp[i][buy] = max(s, ns);
     }
