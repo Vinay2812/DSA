@@ -66,12 +66,11 @@ int lengthOfLIS(vector<int> &nums)
     vector<int> ans;
 
     while(len > 0){
-        if(lis[pos] == len){
-            if(ans.size() == 0 || nums[pos] < prev){
-                ans.push_back(nums[pos]);
-                prev = nums[pos];
-                len--;
-            }
+        
+        if(ans.size() == 0 || nums[pos] < prev){
+            ans.push_back(nums[pos]);
+            prev = nums[pos];
+            len--;
         }
         pos--;
     }
