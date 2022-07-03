@@ -9,6 +9,7 @@ using namespace std;
 int f(int i, int j, int arr[], vector<vector<int>>& dp)
 {
     if(i == j)return 0;//single matrix is formed
+
     if(dp[i][j] != -1)return dp[i][j];
     int mini= 1e9;
 
