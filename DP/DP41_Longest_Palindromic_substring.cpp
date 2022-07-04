@@ -16,36 +16,36 @@ string substring(int st, int e, string s){
 string longestPalindrome(string s)
 {
     int n = s.size();
-    vector<vector<int>>dp (n, vector<int>(n, 0));
-    string ans = substring(0, 0, s);
-    for(int i=0;i<n;i++){
-       dp[i][i] = 1;
-    }
+    vector<vector<int>>palindrome (n, vector<int>(n, 0));
     int maxi = 1;
-    for(int i=0;i<n-1;i++){
-        if(s[i] == s[i+1]){
-            dp[i][i+1] = 1;
-            if(maxi == 1){
-                ans = substring(i, i+1, s);
-                maxi = 2;
+    int x, y;
+   
+    for(int i=n-1;i>=0;i--){
+        for(int j=i;j<n;j++){
+            if(i == j){
+                palindrome[i][j] = 1;
+                maxi = 1;
+                x = i;
+                y = j;
             }
-        }
-    }
-
-    for(int i=n-3;i>=0;i++){
-        for(int j = i+2;j<n;j++){
-            if(s[i] == s[j] and dp[i+1][j-1] == 1){
-                dp[i][j] = 1;
-                if(j - i + 1 > maxi){
-                    maxi = j - i + 1;
-                    ans = substring(i, j, s);
+            else if(j == i+1 and s[i] == s[j]){
+                palindrome[i][j] = 1;
+                maxi = 2;
+                x = i;
+                y = j;
+            }
+            else if(s[i] == s[j] and palindrome[i+1][j-1] == 1){
+                palindrome[i][j] = 1;
+                if(j-i+1 > maxi){
+                    maxi = j-i+1;
+                    x = i;
+                    y = j;
                 }
             }
         }
     }
 
-    return ans;
-
+    return substring(x, y, s);
 }
 
 
