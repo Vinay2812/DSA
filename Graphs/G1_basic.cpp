@@ -1,0 +1,52 @@
+#define ll long long
+#define pii pair<int, int>
+#define ff first
+#define ss second
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+    #ifndef ONLINE_JUDGE
+        freopen("../input.txt","r", stdin);
+        freopen("../output.txt","w", stdout);
+    #endif
+
+    int V, E;
+    cin>>V>>E;
+
+    //Unweighted Graph -> 2D
+    /*
+        vector<int> graph1[V];
+        vector<vector<int>> graph2(V);
+    */
+   //Weighted ->3D
+    vector<pii> graph1[V];
+    vector<vector<int>> graph2[V];
+    
+
+
+    for(int i=0;i<E;i++){
+        int u, v, w;
+        cin>>u>>v>>w;
+
+        graph1[u].push_back({v,w});
+        graph1[v].push_back({u,w});
+
+        graph2[u].push_back({v,w});
+        graph2[v].push_back({u,w});
+    }
+
+    for(int u=0;u<V;u++){
+        cout<<u<<"-> "<<endl;
+        for(auto it : graph1[u]){
+            int v = it.ff;
+            int w = it.ss;
+            cout<<v<<" "<<w<<endl;
+        }
+        cout<<endl;
+    }
+   
+    return 0;
+}

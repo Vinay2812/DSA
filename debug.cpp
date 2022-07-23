@@ -12,6 +12,7 @@
 #define vpll vector<pair<long long, long long>>
 #define first ff
 #define second ss
+#define sum_n(res,a) res=0; for(ll x:a) res+=x;
 #define dbg(x) cout<<#x<<" = "<<x<<endl;
 
 #include<bits/stdc++.h>
