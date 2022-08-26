@@ -15,6 +15,7 @@
 #define sum_n(res,a) res=0; for(ll x:a) res+=x;
 #define dbg(x) cout<<#x<<" = "<<x<<endl;
 
+
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -115,7 +116,7 @@ int debug(){
 int main()
 {
     srand(time(NULL));//to get every time different output
-    ll n = 1000;
+    ll n = 10000;
     while(n--)
         if(debug())break;
 

@@ -1,8 +1,1 @@
-5 4
-baa
-abcd
-abca
-cab
-cad
-
-
+500
