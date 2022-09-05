@@ -1,5 +1,6 @@
 #define ll long long
-#define vi vector<ll>
+#define vi vector<int>
+#define vll vector<ll>
 #define pii pair<ll, ll>
 #define first ff
 #define second ss
@@ -11,7 +12,6 @@
 #define sumof(v, x) accumulate(v.begin(), v.end(), x)
 #define minof(v) *min_element(v.begin(), v.end())
 #define maxof(v) *max_element(v.begin(), v.end())
-#define substring(s, st, e) s.substr(st, (e-st+1))
 #define fast_io ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 
 #include "bits/stdc++.h"
@@ -38,30 +38,54 @@ template <class T1, class T2> void in(vector<pair<T1, T2>>& v){int n = v.size();
 #else
     #define dbg(x) ;
 #endif	
-class Solution{
-public:
-    void solve(){
 
+fstream my;
+fstream correct;
+
+void myAns(vi& nums){
+    my.open("D:/Desktop/DSA/IOD/my.txt", ios::out);
+    my<<"Hello";
+    my.close();
+}
+
+void correctAns(vi& nums){
+    correct.open("D:/Desktop/DSA/IOD/output.txt", ios::out);
+    correct<<"Hello";
+    correct.close();
+}
+
+bool debug(){
+    // Generate random test cases
+    ll n = rand()%10+5;//gets random size from 1 to 10
+    vi nums(n);
+    for(int i=0;i<n;i++){
+        nums[i] = rand()%20 + 1;// gets random no. from 1 to 20
     }
-};
+    //if returns single variable
+    myAns(nums);
+    correctAns(nums);
+
+    if(compare() == false){
+        my.open("D:/Desktop/DSA/IOD/my.txt", ios::app);
+
+        my<<"#test-case\n";
+        my<<n<<endl;
+        for(auto it : nums)my<<it<<" ";
+
+        my.close();
+        return 1;
+    }
+    return 0;
+}
 
 int main()
 {
     clock_t start = clock();
-    fast_io;
-    #ifndef ONLINE_JUDGE
-        freopen("D:/Desktop/DSA/IOD/input.txt","r", stdin);
-        freopen("D:/Desktop/DSA/IOD/output.txt","w", stdout);
-        freopen("D:/Desktop/DSA/IOD/debug.txt","w", stderr);
-    #endif
-
-    Solution obj;
-    ll T=1;
-    //cin>>T;
-    for(int i=1;i<=T;i++){
-        obj.solve();
-        cout<<endl;
-    }
+    freopen("D:/Desktop/DSA/IOD/debug.txt","w", stderr);
+    srand(time(NULL));//to get every time different output
+    ll n = 1;
+    while(n--)
+        if(debug())break;
     dbg(compare());
     string time = (to_string((double)(clock()-start)/CLOCKS_PER_SEC) + "s");
     dbg(time);

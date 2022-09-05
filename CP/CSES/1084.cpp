@@ -1,20 +1,13 @@
 #define ll long long
-#define vi vector<ll>
-#define pii pair<ll, ll>
+#define vi vector<int>
+#define pii pair<int, int>
 #define first ff
 #define second ss
+#define sum_n(res,a) res=0; for(ll x:a) res+=x
 #define setbits(n) __builtin_popcountll(n)
-#define rightmost(n)  63 - __builtin_clzll(n)
-#define leftmost(n)  __builtin_ctzll(n)
-#define lz(n)  __builtin_clzll(n)
-#define tz(n)  __builtin_ctzll(n)
-#define sumof(v, x) accumulate(v.begin(), v.end(), x)
-#define minof(v) *min_element(v.begin(), v.end())
-#define maxof(v) *max_element(v.begin(), v.end())
-#define substring(s, st, e) s.substr(st, (e-st+1))
 #define fast_io ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 
-#include "bits/stdc++.h"
+#include<bits/stdc++.h>
 using namespace std;
 
 template <class T> void in(T& n){cin>>n;}
@@ -34,25 +27,50 @@ template <class T1, class T2> void in(vector<pair<T1, T2>>& v){int n = v.size();
     template <class T1, class T2> void print(map<T1, T2> mp){for(auto it : mp){print(it.ff);cerr<<" -> ";print(it.ss);cerr<<endl;}}
     template <class T> void print(unordered_set<T> s){cerr<<"[";for(auto it : s){print(it);cerr<<" ";}cerr<<"]";}
     template <class T> void print(set<T> s){cerr<<"["<<endl;for(auto it : s){print(it);cerr<<endl;}cerr<<"]";}
-    bool compare(){FILE *fp1 = fopen("D:/Desktop/DSA/IOD/my.txt", "r");FILE *fp2 = fopen("D:/Desktop/DSA/IOD/output.txt", "r");char ch1 = getc(fp1);char ch2 = getc(fp2);while (ch1 != EOF && ch2 != EOF){if (ch1 != ch2)return false;ch1 = getc(fp1);ch2 = getc(fp2);}fclose(fp1);fclose(fp2);return ch1 == EOF && ch2 == EOF;}
+    bool compare(){FILE *fp1 = fopen("D:/Desktop/DSA/my.txt", "r");FILE *fp2 = fopen("D:/Desktop/DSA/output.txt", "r");char ch1 = getc(fp1);char ch2 = getc(fp2);while (ch1 != EOF && ch2 != EOF){if (ch1 != ch2)return false;ch1 = getc(fp1);ch2 = getc(fp2);}fclose(fp1);fclose(fp2);return ch1 == EOF && ch2 == EOF;}
 #else
     #define dbg(x) ;
 #endif	
 class Solution{
 public:
     void solve(){
+        ll n, m, k;
+        cin>>n>>m>>k;
 
+        vector<ll> a(n), b(m);
+        in(a), in(b);
+
+        sort(a.begin(), a.end());
+        sort(b.begin(), b.end());
+
+        int i = 0; int j = 0;
+        int cnt = 0;
+
+        while(i < n and j < m){
+            if((b[j] >= a[i]-k )and (b[j] <= a[i]+k)){
+                cnt++;
+                i++;
+                j++;
+            }
+            else if(a[i] > b[j]){    
+                j++;
+            }
+            else{
+                i++;
+            }
+        }
+        dbg(cnt);
+        cout<<cnt;
     }
 };
 
 int main()
 {
-    clock_t start = clock();
     fast_io;
     #ifndef ONLINE_JUDGE
-        freopen("D:/Desktop/DSA/IOD/input.txt","r", stdin);
-        freopen("D:/Desktop/DSA/IOD/output.txt","w", stdout);
-        freopen("D:/Desktop/DSA/IOD/debug.txt","w", stderr);
+        freopen("D:/Desktop/DSA/input.txt","r", stdin);
+        freopen("D:/Desktop/DSA/output.txt","w", stdout);
+        freopen("D:/Desktop/DSA/debug.txt","w", stderr);
     #endif
 
     Solution obj;
@@ -62,8 +80,5 @@ int main()
         obj.solve();
         cout<<endl;
     }
-    dbg(compare());
-    string time = (to_string((double)(clock()-start)/CLOCKS_PER_SEC) + "s");
-    dbg(time);
     return 0;
 }
