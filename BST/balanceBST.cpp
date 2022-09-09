@@ -60,9 +60,6 @@ void printInorder(Node *root)
 }
 int main()
 {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
     vector<int> arr = {4,5,6,10,11,12,13};
     Node *root = build(arr,0,arr.size()-1);
     printInorder(root);

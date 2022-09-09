@@ -1,2 +1,2 @@
-compare() = 0
-time = 0.003000s
+compare() = 1
+time = 0.042000s

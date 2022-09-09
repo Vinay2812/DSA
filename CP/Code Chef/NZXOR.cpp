@@ -1,6 +1,7 @@
 #define ll long long
 #define ld long double
 #define vi vector<int>
+#define vll vector<ll>
 #define pii pair<ll, ll>
 #define first ff
 #define second ss
@@ -9,15 +10,15 @@
 #define leftmost(n)  __builtin_ctzll(n)
 #define lz(n)  __builtin_clzll(n)
 #define tz(n)  __builtin_ctzll(n)
-#define pb(x) push_back(x)
 #define sumof(v, x) accumulate(v.begin(), v.end(), x)
 #define minof(v) *min_element(v.begin(), v.end())
 #define maxof(v) *max_element(v.begin(), v.end())
 #define substring(s, st, e) s.substr(st, (e-st+1))
 #define mod 1000000007
-#define add(a, b, mod) (a + b)%(mod)
-#define multiply(a, b, mod) (1ll*a * b)%(mod)
-#define loop(i, s, e, inc) for(int (i)=(s);(i)< (e); (i) += (inc))
+#define add(a, b, mod) ((a) + (b))%(mod)
+#define multiply(a, b, mod) (1ll*(a) * (b))%(mod)
+#define loop(i, s, e, inc) for(int (i)=(s);(i) < (e); (i) += (inc))
+#define pb(x) push_back(x)
 #define fast_io ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 
 #include "bits/stdc++.h"
@@ -31,7 +32,8 @@ template <class T> ostream& operator<<(ostream& out, vector<T>& v){for(T &x : v)
 template <class T> ostream& operator<<(ostream& out, vector<vector<T>>& v){for(auto &x : v){out<<x<<endl;}return out;}
 
 #ifndef ONLINE_JUDGE
-    #define dbg(x) cerr<<#x<<" = ";print(x);cerr<<endl
+    #define dbg(x) cerr<<#x<<" = ";print(x);cerr<<endl;
+    void print();
     template <class T> void print(T v){cerr<<v;}
     template <class T> void print(vector<T> v){cerr<<"[ ";for(auto it : v){print(it);cerr<<" ";}cerr<<"]";}
     template <class T1, class T2> void print(pair<T1, T2> v){cerr<<"[ ";print(v.ff);cerr<<" -> ";print(v.ss);cerr<<" ]";}
@@ -48,19 +50,22 @@ template <class T> ostream& operator<<(ostream& out, vector<vector<T>>& v){for(a
 class Solution{
 public:
     void solve(){
-        int n = 3;
-        vector<pii> a(n);
-        cin>>a;
-        loop(d, 0, 3, 1){
-            cout<<a[d].ff<<" "<<a[d].ss<<endl;
+        int n;cin>>n;vi a(n);cin>>a;
+        int cnt = 0;
+        unordered_set<int> prefix;
+        prefix.insert(0);
+        int curr = 0;
+        for(int x : a){
+            curr ^= x;
+            if(prefix.count(curr)){
+                cnt++;
+                prefix.clear();
+                curr = 0;
+            }
+            prefix.insert(curr);
         }
-        long long x;
-        string s = "vinaysarda";
-        cout<<substring(s, 2, 6);
-        // ll x = 1e9+7;
+        cout<<cnt;
 
-        // x = multiply(x, 1, mod);
-        // cout<<x;
     }
 };
 

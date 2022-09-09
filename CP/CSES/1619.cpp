@@ -1,6 +1,5 @@
 #define ll long long
-#define ld long double
-#define vi vector<int>
+#define vi vector<ll>
 #define pii pair<ll, ll>
 #define first ff
 #define second ss
@@ -9,29 +8,23 @@
 #define leftmost(n)  __builtin_ctzll(n)
 #define lz(n)  __builtin_clzll(n)
 #define tz(n)  __builtin_ctzll(n)
-#define pb(x) push_back(x)
 #define sumof(v, x) accumulate(v.begin(), v.end(), x)
 #define minof(v) *min_element(v.begin(), v.end())
 #define maxof(v) *max_element(v.begin(), v.end())
 #define substring(s, st, e) s.substr(st, (e-st+1))
-#define mod 1000000007
-#define add(a, b, mod) (a + b)%(mod)
-#define multiply(a, b, mod) (1ll*a * b)%(mod)
-#define loop(i, s, e, inc) for(int (i)=(s);(i)< (e); (i) += (inc))
+#define loop(i, s, e, inc) for(i=(s);i<(e);i+=(inc))
 #define fast_io ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 
 #include "bits/stdc++.h"
 using namespace std;
-
-template <class T> istream& operator>>(istream& in, vector<T>& v){for(T &x : v){in>>x;}return in;}
-template <class T> istream& operator>>(istream& in, vector<vector<T>>& v){for(auto &x : v){for(T &y : x)in>>y;}return in;}
-template <class T1, class T2> istream& operator>>(istream& in, vector<pair<T1, T2>>& v){for(auto& P : v){in>>P.ff;in>>P.ss;}return in;}
-
-template <class T> ostream& operator<<(ostream& out, vector<T>& v){for(T &x : v){out<<x<<" ";}return out;}
-template <class T> ostream& operator<<(ostream& out, vector<vector<T>>& v){for(auto &x : v){out<<x<<endl;}return out;}
+template <class T> void in(T &x){cin>>x;}
+template <class T> void in(vector<T>& nums){for(T &x : nums)in(x);}
+template <class T> void in(vector<T> nums[], int n, int m){for(int i=0;i<n;i++){vector<T> t(m);in(t);nums[i] = t;}}
+template <class T> void in(vector<vector<T>>& nums){int n = nums.size(), m = nums[0].size();for(int i=0;i<n;i++)for(int j=0;j<m;j++)in(nums[i][j]);}
+template <class T1, class T2> void in(vector<pair<T1, T2>>& v){int n = v.size();for(int i=0;i<n;i++){T1 x;T2 y;in(x);in(y);v[i] = {x, y};}}
 
 #ifndef ONLINE_JUDGE
-    #define dbg(x) cerr<<#x<<" = ";print(x);cerr<<endl
+    #define dbg(x) cerr<<#x<<" = ";print(x);cerr<<endl;
     template <class T> void print(T v){cerr<<v;}
     template <class T> void print(vector<T> v){cerr<<"[ ";for(auto it : v){print(it);cerr<<" ";}cerr<<"]";}
     template <class T1, class T2> void print(pair<T1, T2> v){cerr<<"[ ";print(v.ff);cerr<<" -> ";print(v.ss);cerr<<" ]";}
@@ -46,21 +39,31 @@ template <class T> ostream& operator<<(ostream& out, vector<vector<T>>& v){for(a
     #define dbg(x) ;
 #endif	
 class Solution{
+    static bool cmp(pii& a, pii& b){
+        return a.ff < b.ff;
+    }
 public:
     void solve(){
-        int n = 3;
-        vector<pii> a(n);
-        cin>>a;
-        loop(d, 0, 3, 1){
-            cout<<a[d].ff<<" "<<a[d].ss<<endl;
-        }
-        long long x;
-        string s = "vinaysarda";
-        cout<<substring(s, 2, 6);
-        // ll x = 1e9+7;
+        int n, m, p, q;
+        in({n, m, p, q});
+        // cout<<__cplusplus;
+        vector<pii> a(n);in(a);
 
-        // x = multiply(x, 1, mod);
-        // cout<<x;
+        sort(a.begin(), a.end(), cmp);
+        int ans = 1, i=0, maxi = 1;
+        pii s = a[0];
+        loop(i, 1, n, 1){
+            if(a[i].ff >= s.ff and a[i].ss <= s.ss){
+                ans++;
+            }
+            else{
+                // ans = 1;
+                s.ff = max(s.ff, a[i].ff);
+                s.ss = max(s.ss, a[i].ss);
+            }
+        }
+
+        cout<<ans;
     }
 };
 
@@ -76,7 +79,7 @@ int main()
 
     Solution obj;
     ll T=1;
-    cin>>T;
+    //cin>>T;
     for(int i=1;i<=T;i++){
         obj.solve();
         cout<<endl;
